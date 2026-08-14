@@ -58,6 +58,19 @@ The frontend runs on the Vite port, usually `http://localhost:5173`.
 - Keep `package-lock.json` if you want reproducible installs
 - Add this repository to GitHub and push the branch
 
+## Deployment
+
+This app is prepared for hosting on separate services:
+
+- Backend: Render, Railway, or any Node.js host
+- Frontend: Vercel or Netlify
+- Database: MongoDB Atlas
+
+Environment variables required for production:
+
+- Backend: `PORT`, `MONGO_URI`, `JWT`, `FRONTEND_URL`
+- Frontend: `VITE_API_URL`
+
 ## Notes
 
 The backend expects a MongoDB instance available locally. If you prefer a cloud database, set `MONGO_URI` in `.env` to your connection string.

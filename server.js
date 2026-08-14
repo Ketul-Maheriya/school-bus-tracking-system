@@ -1,18 +1,37 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const connectDB = require("./db/db");
-const router = require("./router/route");
-const app = express();
+const connectDB = require('./db/db');
+const router = require('./router/route');
 
-app.use(cors());
-connectDB();
+const app = express();
+const PORT = process.env.PORT || 3000;
+const frontendUrls = (process.env.FRONTEND_URL || 'http://localhost:5173')
+  .split(',')
+  .map((url) => url.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: frontendUrls,
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
-app.use("/",router);
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', message: 'Server is healthy' });
+});
 
+app.use('/', router);
 
-app.listen(3000,()=>{
-    console.log("Server is running on PORT: http://localhost:3000")
-})
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on PORT: http://localhost:${PORT}`);
+    });
+  })
+  .catch(() => {
+    process.exit(1);
+  });
