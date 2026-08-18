@@ -555,10 +555,8 @@ const Admin = () => {
 
                     <div
                         className="tracking-map"
-                        style={{
-                            height: "500px",
-                            width: "100%"
-                        }}
+                        
+                        
                     >
 
                         <MapContainer
@@ -1128,7 +1126,7 @@ const Admin = () => {
 
             {selectedBus && (
 
-                <section className="selected-bus-panel" style={{width:"90%"}}>
+                <section className="selected-bus-panel" >
 
                     <div className="panel-header">
 
